@@ -244,6 +244,7 @@ install:
 	@if [ ! -d $(PREFIX)/etc ]; then mkdir -p $(PREFIX)/etc; fi
 	cp amrvis.defaults $(PREFIX)/etc/amrvis.defaults
 	cp Palette $(PREFIX)/etc/Palette
+	@sed -i 's|Palette|'"$(PREFIX)/etc/Palette"'|g' $(PREFIX)/etc/amrvis.defaults
 
 include $(AMREX_HOME)/Tools/GNUMake/Make.rules
 
