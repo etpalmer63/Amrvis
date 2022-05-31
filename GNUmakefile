@@ -116,12 +116,12 @@ ifeq ($(which_site), unknown)
     # everything into the /usr/local tree.
     INCLUDE_LOCATIONS += /usr/local/include
     LIBRARY_LOCATIONS += /usr/local/lib
-    
+
     # if dependencies installed via macport, everything symlinks
     # to /opt/local/
     INCLUDE_LOCATIONS += /opt/local/include
     LIBRARY_LOCATIONS += /opt/local/lib
-    
+
     # on macOS X11 is installed into the /opt tree
     INCLUDE_LOCATIONS += /opt/X11/include
     LIBRARY_LOCATIONS += /opt/X11/lib
@@ -235,6 +235,15 @@ ifeq ($(USE_PROFDATA), TRUE)
 #	flex --outfile=BLProfParser.lex.yy.cpp $(AMREX_HOME)/Src/Extern/ProfParser/BLProfParser.l
 
 endif
+
+install:
+	@echo Installing Amrvis at $(PREFIX)
+	@if [ ! -d $(PREFIX) ]; then mkdir -p $(PREFIX); fi
+	mv $(executable) $(PREFIX)/$(executable)
+	@echo Installing Amrvis at configuration files at $(PREFIX)/etc
+	@if [ ! -d $(PREFIX)/etc ]; then mkdir -p $(PREFIX)/etc; fi
+	cp amrvis.defaults $(PREFIX)/etc/amrvis.defaults
+	cp Palette $(PREFIX)/etc/Palette
 
 include $(AMREX_HOME)/Tools/GNUMake/Make.rules
 
